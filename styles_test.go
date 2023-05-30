@@ -15,12 +15,22 @@ func TestStyleFill(t *testing.T) {
 		format     *Style
 		expectFill bool
 	}{{
-		label:      "no_fill",
-		format:     &Style{Alignment: &Alignment{WrapText: true}},
+		label: "no_fill",
+		format: &Style{
+			Alignment: &Alignment{
+				WrapText: true,
+			},
+		},
 		expectFill: false,
 	}, {
-		label:      "fill",
-		format:     &Style{Fill: Fill{Type: "pattern", Pattern: 1, Color: []string{"000000"}}},
+		label: "fill",
+		format: &Style{
+			Fill: Fill{
+				Type:    "pattern",
+				Pattern: 1,
+				Color:   []string{"000000"},
+			},
+		},
 		expectFill: true,
 	}}
 
@@ -38,11 +48,26 @@ func TestStyleFill(t *testing.T) {
 			assert.Equal(t, *style.FillID, 0, testCase.label)
 		}
 	}
+
 	f := NewFile()
-	styleID1, err := f.NewStyle(&Style{Fill: Fill{Type: "pattern", Pattern: 1, Color: []string{"000000"}}})
+	styleID1, err := f.NewStyle(&Style{
+		Fill: Fill{
+			Type:    "pattern",
+			Pattern: 1,
+			Color:   []string{"000000"},
+		},
+	})
 	assert.NoError(t, err)
-	styleID2, err := f.NewStyle(&Style{Fill: Fill{Type: "pattern", Pattern: 1, Color: []string{"000000"}}})
+
+	styleID2, err := f.NewStyle(&Style{
+		Fill: Fill{
+			Type:    "pattern",
+			Pattern: 1,
+			Color:   []string{"000000"},
+		},
+	})
 	assert.NoError(t, err)
+
 	assert.Equal(t, styleID1, styleID2)
 	assert.NoError(t, f.SaveAs(filepath.Join("test", "TestStyleFill.xlsx")))
 }
